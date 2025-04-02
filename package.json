@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "npx mocha src/booking.test.js"
+    "test": "newman run src/restful-booker.postman_collection.json"
   },
   "keywords": [],
   "author": "",
