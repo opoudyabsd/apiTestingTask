@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "newman run src/restful-booker.postman_collection.json"
+    "test": "npx newman run src/restful-booker.postman_collection.json"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +14,8 @@
     "axios": "^1.8.4",
     "chai": "^5.2.0",
     "mocha": "^11.1.0"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1"
   }
 }
