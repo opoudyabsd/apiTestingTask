@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "npx newman run src/restful-booker.postman_collection.json",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "prettier": "npx prettier . --write"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
   },
   "devDependencies": {
     "eslint": "^9.24.0",
-    "newman": "^6.2.1"
+    "newman": "^6.2.1",
+    "prettier": "3.5.3"
   }
 }
