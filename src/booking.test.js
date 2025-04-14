@@ -5,6 +5,7 @@ import storageData from "./storageData.js";
 describe("Booking API tests", function () {
   let token;
   let bookingId;
+
   it("POST -> Create token", async () => {
     try {
       const response = await axios.post(
@@ -19,13 +20,14 @@ describe("Booking API tests", function () {
       throw new Error(`Token wasn't generated: ${error}`);
     }
   });
+
   it("POST -> Create booking", async () => {
-    try{
+    try {
       const response = await axios.post(
         `${storageData.baseUrl}/booking`,
         storageData.createBookingBody,
         {
-          headers: storageData.headers
+          headers: storageData.headers,
         }
       );
       bookingId = response.data.bookingid;
@@ -39,16 +41,17 @@ describe("Booking API tests", function () {
       expect(response.data.booking).to.have.property("depositpaid");
       expect(response.data.booking.bookingdates).to.have.property("checkin");
       expect(response.data.booking.bookingdates).to.have.property("checkout");
-    }catch(error){
-      throw new Error(`Create booking wasn't succesful: ${error}`)
+    } catch (error) {
+      throw new Error(`Create booking wasn't succesful: ${error}`);
     }
   });
+
   it("GET -> Open Created Booking", async () => {
-    try{
+    try {
       const response = await axios.get(
         `${storageData.baseUrl}/booking/${bookingId}`,
         {
-          headers: storageData.headers
+          headers: storageData.headers,
         }
       );
       expect(response.status).to.be.equal(200);
@@ -58,38 +61,50 @@ describe("Booking API tests", function () {
       expect(response.data).to.have.property("depositpaid");
       expect(response.data.bookingdates).to.have.property("checkin");
       expect(response.data.bookingdates).to.have.property("checkout");
-    }catch(error){
-      throw new Error(`Can't open booking: ${error}`)
+    } catch (error) {
+      throw new Error(`Can't open booking: ${error}`);
     }
-
   });
+
   it("PUT -> Update booking", async () => {
-    try{
+    try {
       const response = await axios.put(
         `${storageData.baseUrl}/booking/${bookingId}`,
         storageData.changeBookingBody,
         {
-          headers:
-          {
+          headers: {
             "content-type": storageData.headers["content-type"],
             Accept: storageData.headers.Accept,
             Cookie: `token=${token}`,
-          }
+          },
         }
       );
       expect(response.status).to.be.equal(200);
-      expect(response.data.firstname).to.be.equal(storageData.changeBookingBody.firstname)
-      expect(response.data.lastname).to.be.equal(storageData.changeBookingBody.lastname)
-      expect(response.data.totalprice).to.be.equal(storageData.changeBookingBody.totalprice)
-      expect(response.data.depositpaid).to.be.equal(storageData.changeBookingBody.depositpaid)
-      expect(response.data.bookingdates.checkin).to.be.equal(storageData.changeBookingBody.bookingdates.checkin)
-      expect(response.data.bookingdates.checkout).to.be.equal(storageData.changeBookingBody.bookingdates.checkout)  
-    }catch(error){
-      throw new Error(`Booking wasn't updated successfully: ${error} `)
+      expect(response.data.firstname).to.be.equal(
+        storageData.changeBookingBody.firstname
+      );
+      expect(response.data.lastname).to.be.equal(
+        storageData.changeBookingBody.lastname
+      );
+      expect(response.data.totalprice).to.be.equal(
+        storageData.changeBookingBody.totalprice
+      );
+      expect(response.data.depositpaid).to.be.equal(
+        storageData.changeBookingBody.depositpaid
+      );
+      expect(response.data.bookingdates.checkin).to.be.equal(
+        storageData.changeBookingBody.bookingdates.checkin
+      );
+      expect(response.data.bookingdates.checkout).to.be.equal(
+        storageData.changeBookingBody.bookingdates.checkout
+      );
+    } catch (error) {
+      throw new Error(`Booking wasn't updated successfully: ${error} `);
     }
   });
+
   it("DELETE -> Deleted created booking", async () => {
-    try{
+    try {
       const response = await axios.delete(
         `${storageData.baseUrl}/booking/${bookingId}`,
         {
@@ -102,8 +117,8 @@ describe("Booking API tests", function () {
       expect(response.headers["content-type"]).to.include("text/plain");
       expect(response.status).to.be.equal(201);
       expect(response.data).to.have.string("Created");
-    }catch(error){
-      throw new Error(`Booking wasn't deleted successfully: ${error}`)
+    } catch (error) {
+      throw new Error(`Booking wasn't deleted successfully: ${error}`);
     }
   });
 });
