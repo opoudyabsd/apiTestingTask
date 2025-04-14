@@ -8,7 +8,7 @@ describe("Booking API tests", function () {
     try {
       const response = await axios.post(
         `${storageData.baseUrl}/auth`,
-        storageData.tokenBody
+        storageData.tokenBody,
       );
       expect(response.headers["content-type"]).to.include("application/json");
       expect(response.status).to.be.equal(200);
@@ -35,7 +35,7 @@ describe("Booking API tests", function () {
         },
         {
           headers: storageData.headers,
-        }
+        },
       );
       bookingId = response.data.bookingid;
       console.log(response.data);
@@ -64,7 +64,7 @@ describe("Booking API tests", function () {
           headers: {
             "Content-Type": storageData.headers["content-type"],
           },
-        }
+        },
       );
       expect(response.status).to.be.equal(403);
       expect(response.data).to.have.string("Forbidden");
@@ -88,7 +88,7 @@ describe("Booking API tests", function () {
         },
         {
           headers: storageData.headers,
-        }
+        },
       );
       expect(response.status).to.be.equal(500);
       expect(response.data).to.have.string("Internal Server Error");

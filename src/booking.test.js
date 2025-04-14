@@ -10,7 +10,7 @@ describe("Booking API tests", function () {
     try {
       const response = await axios.post(
         `${storageData.baseUrl}/auth`,
-        storageData.tokenBody
+        storageData.tokenBody,
       );
       token = response.data.token;
       expect(response.headers["content-type"]).to.include("application/json");
@@ -28,7 +28,7 @@ describe("Booking API tests", function () {
         storageData.createBookingBody,
         {
           headers: storageData.headers,
-        }
+        },
       );
       bookingId = response.data.bookingid;
       expect(response.headers["content-type"]).to.include("application/json");
@@ -52,7 +52,7 @@ describe("Booking API tests", function () {
         `${storageData.baseUrl}/booking/${bookingId}`,
         {
           headers: storageData.headers,
-        }
+        },
       );
       expect(response.status).to.be.equal(200);
       expect(response.data).to.have.property("firstname");
@@ -77,26 +77,26 @@ describe("Booking API tests", function () {
             Accept: storageData.headers.Accept,
             Cookie: `token=${token}`,
           },
-        }
+        },
       );
       expect(response.status).to.be.equal(200);
       expect(response.data.firstname).to.be.equal(
-        storageData.changeBookingBody.firstname
+        storageData.changeBookingBody.firstname,
       );
       expect(response.data.lastname).to.be.equal(
-        storageData.changeBookingBody.lastname
+        storageData.changeBookingBody.lastname,
       );
       expect(response.data.totalprice).to.be.equal(
-        storageData.changeBookingBody.totalprice
+        storageData.changeBookingBody.totalprice,
       );
       expect(response.data.depositpaid).to.be.equal(
-        storageData.changeBookingBody.depositpaid
+        storageData.changeBookingBody.depositpaid,
       );
       expect(response.data.bookingdates.checkin).to.be.equal(
-        storageData.changeBookingBody.bookingdates.checkin
+        storageData.changeBookingBody.bookingdates.checkin,
       );
       expect(response.data.bookingdates.checkout).to.be.equal(
-        storageData.changeBookingBody.bookingdates.checkout
+        storageData.changeBookingBody.bookingdates.checkout,
       );
     } catch (error) {
       throw new Error(`Booking wasn't updated successfully: ${error} `);
@@ -112,7 +112,7 @@ describe("Booking API tests", function () {
             Cookie: `token=${token}`,
             "Content-Type": storageData.headers["content-type"],
           },
-        }
+        },
       );
       expect(response.headers["content-type"]).to.include("text/plain");
       expect(response.status).to.be.equal(201);
